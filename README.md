@@ -5,11 +5,11 @@
 El programa lo que hace es un combate por turnos a través de clases entre un héroe y un enemigo a los cuales se los puede llamar como deseen y ponerle el ataque como gusten.
 
 
-
 \## COMO EJECUTARLO
 
 solo pégalo en dotnetfiddle.net y pulsa Run para ver los resultados. 
 
+<img width="1917" height="830" alt="image" src="https://github.com/user-attachments/assets/e3c18a27-7b90-4e03-8413-500c6566790a" />
 
 
 \## QUE PRACTIQUE (20/11/26)
