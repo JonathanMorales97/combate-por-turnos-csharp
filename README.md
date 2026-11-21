@@ -24,3 +24,5 @@ Añadiendo el constructor y el métodos que devuelven bool como el EstaVivo todo
 Se añade listas de enemigos para que el héroe combata por turnos con cada uno de ellos, se recorre las listas con un foreach y se anida un bucle while para verficar si los enemigos estan vivos o si el héroe sigue vivo.
 
 Se aumenta un método para el combate dentro del Program, que se encargue del combate entre dos personajes y devuelva al Main el resultado.
+
+Se modifica los métodos de Atacar y Recibir daño para que devuelvan el daño real, además se incorpora golpes críticos que hacen el doble de daño que el ataque normal. Se muestra en pantalla el daño real que se causa al personaje en combate.
