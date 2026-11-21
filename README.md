@@ -19,5 +19,5 @@ Se pone en práctica lo que viene siendo clases, comprobaciones y bucles a trav�
 
 ## QUE PRACTIQUE (21/11/26)
 
-Añadiendo el constructor y el metodo EstaVivo al personaje;
+Añadiendo el constructor y el metodos que devuelven bool como el EstaVivo todo al personaje, tambien se usa el metodo en los if del bucle while para el combate;
 
