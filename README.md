@@ -26,3 +26,5 @@ Se añade listas de enemigos para que el héroe combata por turnos con cada uno 
 Se aumenta un método para el combate dentro del Program, que se encargue del combate entre dos personajes y devuelva al Main el resultado.
 
 Se modifica los métodos de Atacar y Recibir daño para que devuelvan el daño real, además se incorpora golpes críticos que hacen el doble de daño que el ataque normal. Se muestra en pantalla el daño real que se causa al personaje en combate.
+
+Por último se aplica el concepto de Herencia con el Heroe, Enemigo y Jefe, donde la clase Jefe hace un override del método Atacar y ataca dos veces por turno.
