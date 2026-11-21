@@ -31,10 +31,11 @@ public class Personaje
             danio = objetivo.RecibirDanio(ataque * 2);
             Console.WriteLine(nombre + " acertó un golpe crítico de daño " + danio);
         }
-        else {
+        else
+        {
             danio = objetivo.RecibirDanio(ataque);
         }
-       
+
         return danio;
     }
 
@@ -76,17 +77,12 @@ public class Jefe : Enemigo
 
     public override int Atacar(Personaje objetivo)
     {
-        int primerAtq = base.Atacar(objetivo);
-        int segundoAtq = base.Atacar(objetivo);
-        int atq = primerAtq + segundoAtq;
+        int atq = base.Atacar(objetivo);
         if (objetivo.EstaVivo())
         {
-            return atq;
+            atq += base.Atacar(objetivo);
         }
-        else
-        {
-            return primerAtq;
-        }
+        return atq;
     }
 }
 
@@ -97,7 +93,7 @@ public class Program
 
     public static void Main()
     {
-        Heroe heroina = new Heroe("Vane", 2000, 75, 500);
+        Heroe heroina = new Heroe("Vane", 1700, 75, 500);
         List<Enemigo> enemigos = new List<Enemigo>();
         enemigos.Add(new Enemigo("e1", 200, 10, 100));
         enemigos.Add(new Enemigo("jona", 500, 50, 350));
