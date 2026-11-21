@@ -19,6 +19,8 @@ Se pone en práctica lo que viene siendo clases, comprobaciones y bucles a trav�
 
 \## QUE PRACTIQUE (21/11/26)
 
-Añadiendo el constructor y el metodos que devuelven bool como el EstaVivo todo al personaje, tambien se usa el metodo en los if del bucle while para el combate.
+Añadiendo el constructor y el métodos que devuelven bool como el EstaVivo todo al personaje, tambien se usa el metodo en los if del bucle while para el combate.
 
 Se añade listas de enemigos para que el héroe combata por turnos con cada uno de ellos, se recorre las listas con un foreach y se anida un bucle while para verficar si los enemigos estan vivos o si el héroe sigue vivo.
+
+Se aumenta un método para el combate dentro del Program, que se encargue del combate entre dos personajes y devuelva al Main el resultado.
