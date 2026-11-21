@@ -12,7 +12,12 @@ solo pégalo en dotnetfiddle.net y pulsa Run para ver los resultados.
 
 
 
-\## QUE PRACTIQUE
+\## QUE PRACTIQUE (20/11/26)
 
 Se pone en práctica lo que viene siendo clases, comprobaciones y bucles a través de dos personajes un héroe y un enemigo que luchan entre si.
+
+
+## QUE PRACTIQUE (21/11/26)
+
+Añadiendo el constructor y el metodo EstaVivo al personaje;
 
