@@ -22,7 +22,7 @@ public class Personaje
         return vidaAntes - vida;
     }
 
-    public int Atacar(Personaje objetivo)
+    public virtual int Atacar(Personaje objetivo)
     {
         int danio;
         int porcentaje = azar.Next(0, 100);
@@ -45,6 +45,51 @@ public class Personaje
 
 }
 
+public class Heroe : Personaje
+{
+    public int oro;
+
+    public Heroe(string nombre, int vida, int ataque, int oro) : base(nombre, vida, ataque)
+    {
+        this.oro = oro;
+    }
+
+    public void Curar(int cantidad)
+    {
+        vida += cantidad;
+    }
+}
+
+public class Enemigo : Personaje
+{
+    public int recompensa;
+
+    public Enemigo(string nombre, int vida, int ataque, int recompensa) : base(nombre, vida, ataque)
+    {
+        this.recompensa = recompensa;
+    }
+}
+
+public class Jefe : Enemigo
+{
+    public Jefe(string nombre, int vida, int ataque, int recompensa) : base(nombre, vida, ataque, recompensa) { }
+
+    public override int Atacar(Personaje objetivo)
+    {
+        int primerAtq = base.Atacar(objetivo);
+        int segundoAtq = base.Atacar(objetivo);
+        int atq = primerAtq + segundoAtq;
+        if (objetivo.EstaVivo())
+        {
+            return atq;
+        }
+        else
+        {
+            return primerAtq;
+        }
+    }
+}
+
 
 
 public class Program
@@ -52,29 +97,30 @@ public class Program
 
     public static void Main()
     {
-        Personaje heroe = new Personaje("Vane", 1000, 75);
-        List<Personaje> enemigos = new List<Personaje>();
-        enemigos.Add(new Personaje("e1", 200, 10));
-        enemigos.Add(new Personaje("jona", 500, 50));
-        enemigos.Add(new Personaje("Padre", 800, 80));
+        Heroe heroina = new Heroe("Vane", 2000, 75, 500);
+        List<Enemigo> enemigos = new List<Enemigo>();
+        enemigos.Add(new Enemigo("e1", 200, 10, 100));
+        enemigos.Add(new Enemigo("jona", 500, 50, 350));
+        enemigos.Add(new Enemigo("Padre", 800, 80, 500));
+        enemigos.Add(new Jefe("Valentina", 950, 100, 1000));
 
-        foreach (Personaje enemigo in enemigos)
+        foreach (Enemigo enemigo in enemigos)
         {
-            bool combate = Combatir(heroe, enemigo);
+            bool combate = Combatir(heroina, enemigo);
             if (!combate)
             {
                 Console.WriteLine("La heroína cayó ante el enemigo: " + enemigo.nombre);
                 break;
             }
         }
-        if (heroe.EstaVivo())
+        if (heroina.EstaVivo())
         {
             Console.WriteLine("La heroína triunfó en su batalla contra los " + enemigos.Count + " enemigos");
         }
     }
 
 
-    static bool Combatir(Personaje heroe, Personaje enemigo)
+    static bool Combatir(Heroe heroe, Enemigo enemigo)
     {
         while (enemigo.EstaVivo())
         {
@@ -83,6 +129,8 @@ public class Program
             if (!enemigo.EstaVivo())
             {
                 Console.WriteLine("La heroína " + heroe.nombre + " venció a " + enemigo.nombre + " gloriosamente en combate");
+                heroe.oro += enemigo.recompensa;
+                Console.WriteLine("Por su valentía recibe " + enemigo.recompensa + " de oro de recompensa, su oro actual es: " + heroe.oro);
                 return true;
             }
 
