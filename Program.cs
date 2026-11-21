@@ -6,6 +6,7 @@ public class Personaje
     public string nombre;
     public int vida;
     public int ataque;
+    private static Random azar = new Random();
 
     public Personaje(string nombre, int vida, int ataque)
     {
@@ -14,14 +15,27 @@ public class Personaje
         this.ataque = ataque;
     }
 
-    public void RecibirDanio(int cantidad)
+    public int RecibirDanio(int cantidad)
     {
+        int vidaAntes = vida;
         vida = Math.Max(0, vida - cantidad);
+        return vidaAntes - vida;
     }
 
-    public void Atacar(Personaje objetivo)
+    public int Atacar(Personaje objetivo)
     {
-        objetivo.RecibirDanio(ataque);
+        int danio;
+        int porcentaje = azar.Next(0, 100);
+        if (porcentaje < 20)
+        {
+            danio = objetivo.RecibirDanio(ataque * 2);
+            Console.WriteLine(nombre + " acertó un golpe crítico de daño " + danio);
+        }
+        else {
+            danio = objetivo.RecibirDanio(ataque);
+        }
+       
+        return danio;
     }
 
     public bool EstaVivo()
@@ -38,12 +52,11 @@ public class Program
 
     public static void Main()
     {
-        Personaje heroe = new Personaje("Vane", 200, 75);
-        // Personaje enemigo = new Personaje("Jona", 100, 35);
+        Personaje heroe = new Personaje("Vane", 1000, 75);
         List<Personaje> enemigos = new List<Personaje>();
-        enemigos.Add(new Personaje("e1", 100, 10));
-        enemigos.Add(new Personaje("jona", 200, 50));
-        enemigos.Add(new Personaje("Padre", 400, 80));
+        enemigos.Add(new Personaje("e1", 200, 10));
+        enemigos.Add(new Personaje("jona", 500, 50));
+        enemigos.Add(new Personaje("Padre", 800, 80));
 
         foreach (Personaje enemigo in enemigos)
         {
@@ -65,16 +78,16 @@ public class Program
     {
         while (enemigo.EstaVivo())
         {
-            heroe.Atacar(enemigo);
-            Console.WriteLine("El enemigo " + enemigo.nombre + " sufrió un daño total de: " + heroe.ataque + ", su vida actual es: " + enemigo.vida);
+            int hecho = heroe.Atacar(enemigo);
+            Console.WriteLine("El enemigo " + enemigo.nombre + " sufrió un daño total de: " + hecho + ", su vida actual es: " + enemigo.vida);
             if (!enemigo.EstaVivo())
             {
-                Console.WriteLine("La heroína " + heroe.nombre + " venció a " + enemigo.nombre + " gloriosamente en combate a");
+                Console.WriteLine("La heroína " + heroe.nombre + " venció a " + enemigo.nombre + " gloriosamente en combate");
                 return true;
             }
 
-            enemigo.Atacar(heroe);
-            Console.WriteLine("La vida de la heroína es: " + heroe.vida + ", porque el ataque fue de: " + enemigo.ataque);
+            hecho = enemigo.Atacar(heroe);
+            Console.WriteLine("La vida de la heroína es: " + heroe.vida + ", porque el ataque fue de: " + hecho);
             if (!heroe.EstaVivo())
             {
                 return false;
