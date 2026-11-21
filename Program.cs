@@ -7,21 +7,25 @@ public class Personaje
     public int vida;
     public int ataque;
 
-    public Personaje(string nombre, int vida, int ataque){
+    public Personaje(string nombre, int vida, int ataque)
+    {
         this.nombre = nombre;
         this.vida = vida;
         this.ataque = ataque;
     }
 
-    public void RecibirDanio(int cantidad){
+    public void RecibirDanio(int cantidad)
+    {
         vida = Math.Max(0, vida - cantidad);
     }
 
-    public void Atacar(Personaje objetivo){
+    public void Atacar(Personaje objetivo)
+    {
         objetivo.RecibirDanio(ataque);
     }
 
-    public bool EstaVivo(){
+    public bool EstaVivo()
+    {
         return vida > 0;
     }
 
@@ -31,9 +35,10 @@ public class Personaje
 
 public class Program
 {
+
     public static void Main()
     {
-        Personaje heroe = new Personaje("Vane", 1000, 75);
+        Personaje heroe = new Personaje("Vane", 200, 75);
         // Personaje enemigo = new Personaje("Jona", 100, 35);
         List<Personaje> enemigos = new List<Personaje>();
         enemigos.Add(new Personaje("e1", 100, 10));
@@ -42,27 +47,10 @@ public class Program
 
         foreach (Personaje enemigo in enemigos)
         {
-            while (enemigo.EstaVivo())
+            bool combate = Combatir(heroe, enemigo);
+            if (!combate)
             {
-                heroe.Atacar(enemigo);
-                Console.WriteLine("El enemigo " + enemigo.nombre + " sufrió un daño total de: " + heroe.ataque + ", su vida actual es: " + enemigo.vida);
-                if (!enemigo.EstaVivo())
-                {
-                    Console.WriteLine("La heroína " + heroe.nombre + " venció a " + enemigo.nombre + " gloriosamente en combate");
-                    break;
-                }
-
-                enemigo.Atacar(heroe);
-                Console.WriteLine("La vida de la heroína es: " + heroe.vida + ", porque el ataque fue de: " + enemigo.ataque);
-                if (!heroe.EstaVivo())
-                {
-                    Console.WriteLine("La heroína ha dado su vida en combate contra " + enemigo.nombre);
-                    break;
-                }
-            }
-            if (!heroe.EstaVivo())
-            {
-                Console.WriteLine("La heroína ha dado su vida en combate ante los " + enemigos.Count + " enemigos");
+                Console.WriteLine("La heroína cayó ante el enemigo: " + enemigo.nombre);
                 break;
             }
         }
@@ -70,5 +58,28 @@ public class Program
         {
             Console.WriteLine("La heroína triunfó en su batalla contra los " + enemigos.Count + " enemigos");
         }
+    }
+
+
+    static bool Combatir(Personaje heroe, Personaje enemigo)
+    {
+        while (enemigo.EstaVivo())
+        {
+            heroe.Atacar(enemigo);
+            Console.WriteLine("El enemigo " + enemigo.nombre + " sufrió un daño total de: " + heroe.ataque + ", su vida actual es: " + enemigo.vida);
+            if (!enemigo.EstaVivo())
+            {
+                Console.WriteLine("La heroína " + heroe.nombre + " venció a " + enemigo.nombre + " gloriosamente en combate a");
+                return true;
+            }
+
+            enemigo.Atacar(heroe);
+            Console.WriteLine("La vida de la heroína es: " + heroe.vida + ", porque el ataque fue de: " + enemigo.ataque);
+            if (!heroe.EstaVivo())
+            {
+                return false;
+            }
+        }
+        return heroe.EstaVivo();
     }
 }
